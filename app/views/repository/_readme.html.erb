@@ -1,5 +1,13 @@
-<h2 id="toggle_readme_block"><a>README</a></h2>
-<div id="readme_at_repo_dir" class="wiki" <% if show == 0%>style="display: none;"<% end %>>
+<%= stylesheet_link_tag 'readme', :plugin => 'readme_at_repositories' %>
+
+<%# Tricky hack to bypass default focus.
+    See: http://www.redmine.org/projects/redmine/repository/entry/tags/3.1.1/public/javascripts/application.js#L631 %>
+<input type="text" class="hidden" />
+
+<h2 id="toggle_readme_block">
+  README <span>[<a href="#"><% if show %>+<% else %>-<% end %></a>]</span>
+</h2>
+<div id="readme_at_repo_dir" class="wiki<% if show %> hidden<% end %>">
   <% if html.html_safe.respond_to?(:force_encoding) %>
     <%= html.html_safe.force_encoding('UTF-8') %>
   <% else %>
@@ -16,9 +24,11 @@ $(document).ready(function(){
   $("#toggle_readme_block").insertBefore(".other-formats:first")
   $("#readme_at_repo_dir").insertBefore(".other-formats:first")
   <% end %>
-  $("#toggle_readme_block").click(function(){
-    $("#readme_at_repo_dir").toggle(500);
+  $("#toggle_readme_block a").click(function(ev) {
+    var link = $(this);
+    ev.preventDefault();
+    $("#readme_at_repo_dir").slideToggle(500, function() {
+      link.text((link.text() == '+') ? '-' : '+');
+    });
   });
-  $(document).scrollTop(0);
-});
 <% end %>
