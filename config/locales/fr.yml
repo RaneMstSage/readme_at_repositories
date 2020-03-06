@@ -1,0 +1,11 @@
+fr:
+  label_readme_position: "Position du Readme:"
+  label_display_position_none: "Désactivé"
+  label_display_position_top: "Haut"
+  label_display_position_middle: "Milieu"
+  label_display_position_bottom: "Bas"
+  label_project_setting_title: "Affichage du README.md"
+  label_update_setting: "Appliquer"
+  label_default_view_status: "Affichage par défaut:"
+  label_display_default_show: "Développé"
+  label_display_default_hide: "Réduit"
