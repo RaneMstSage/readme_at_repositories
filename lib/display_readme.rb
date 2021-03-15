@@ -15,6 +15,11 @@ class DisplayReadme < Redmine::Hook::ViewListener
     repo = context[:project].repositories.find &blk
 
     entry = repo.entry(path)
+
+    if entry.blank?
+      return ''
+    end
+
     if not entry.is_dir?
       return ''
     end
