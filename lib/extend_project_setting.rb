@@ -1,17 +1,17 @@
 require_dependency 'projects_helper'
 
-module ExtendRarProjectsSetting
+module ExtendProjectSetting
   module RarProjectSettingExtension
-  
+
   def self.apply
-    ProjectsController.send(:helper, ExtendRarProjectsSetting::RarProjectSettingExtension)
+    ProjectsController.send(:helper, ExtendProjectSetting::RarProjectSettingExtension)
   end
 
   def project_settings_tabs
     action = {
-      :name => 'readme_at_repositories', 
-      :action => {:controller => 'rar_project_settings', :action => 'update'}, 
-      :partial => 'rar_project_settings/show', 
+      :name => 'readme_at_repositories',
+      :action => {:controller => 'rar_project_settings', :action => 'update'},
+      :partial => 'rar_project_settings/show',
       :label => :label_project_setting_title
     }
     tabs = super
