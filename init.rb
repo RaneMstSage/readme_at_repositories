@@ -13,8 +13,7 @@ Redmine::Plugin.register :readme_at_repositories do
   end
 end
 
-Rails.configuration.to_prepare do
+Rails.application.config.to_prepare do
   require_dependency 'display_readme'
   require_dependency 'extend_project_setting'
-  ExtendProjectSetting::RarProjectSettingExtension.apply
 end
