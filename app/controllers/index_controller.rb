@@ -1,9 +1,8 @@
+# frozen_string_literal: true
+
+# Controller for displaying README content at repository index
+# Part of the readme_at_repositories plugin for Redmine
 class IndexController < ApplicationController
-
-  if Redmine::VERSION::MAJOR < 4 || (Redmine::VERSION::MAJOR == 4 && Redmine::VERSION::MINOR < 1)
-    unloadable
-  end
-
   def index
     @project = Project.find(params[:project_id])
   end

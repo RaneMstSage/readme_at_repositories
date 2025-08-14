@@ -1,9 +1,13 @@
-class RarProjectSetting < ActiveRecord::Base
-  if Redmine::VERSION::MAJOR < 4 || (Redmine::VERSION::MAJOR == 4 && Redmine::VERSION::MINOR < 1)
-    unloadable
-  end
+# frozen_string_literal: true
 
-  if defined?(ProtectedAttributes) || ::ActiveRecord::VERSION::MAJOR < 4
-    attr_accessible :project_id, :position, :show
-  end
+# Model for storing README display settings per project
+# Manages position and visibility preferences for README content
+class RarProjectSetting < ActiveRecord::Base
+  # Associations
+  belongs_to :project
+
+  # Validations
+  validates :project_id, presence: true, uniqueness: true
+  validates :position, inclusion: { in: [0, 1, 2] }
+  validates :show, inclusion: {in: [0, 1] }
 end

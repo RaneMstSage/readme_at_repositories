@@ -1,17 +1,179 @@
+/* Styles for README at repositories plugin - SageDark Theme */
+
+/* Hide elements with hidden class */
 .hidden {
   display: none;
 }
+
+/* Toggle button styling for README section - matches SageDark theme */
+#toggle_readme_block {
+  color: #e1e1e1;
+  font-size: 20px;
+  font-weight: normal;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 #toggle_readme_block > span {
-  color: #999;
+  color: #B8860B;
   font-size: 0.8em;
   font-weight: normal;
 }
+
 #toggle_readme_block > span > a {
   font-weight: bold;
   text-decoration: none;
+  color: #B8860B;
 }
+
+#toggle_readme_block > span > a:hover {
+  color: #fff;
+}
+
+/* README content container styling - matches SageDark dark boxes */
 #readme_at_repo_dir {
-  padding: 0.5em;
-  border: 1px solid #ddd;
-  background: #fff;
+  padding: 15px;
+  border: 1px solid #444;
+  background: #222;
+  margin: 10px 0;
+  border-radius: 3px;
+  color: #e1e1e1;
+}
+
+/* Typography in README content - matches SageDark wiki styling */
+#readme_at_repo_dir h1,
+#readme_at_repo_dir h2,
+#readme_at_repo_dir h3,
+#readme_at_repo_dir h4,
+#readme_at_repo_dir h5,
+#readme_at_repo_dir h6 {
+  color: #a7743e;
+  font-weight: normal;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+#readme_at_repo_dir h1 {
+  font-size: 28px;
+}
+
+#readme_at_repo_dir h2 {
+  font-size: 20px;
+}
+
+#readme_at_repo_dir h3 {
+  font-size: 16px;
+}
+
+#readme_at_repo_dir p {
+  margin-bottom: 10px;
+  color: #e1e1e1;
+  line-height: 1.3;
+}
+
+#readme_at_repo_dir ul,
+#readme_at_repo_dir ol {
+  color: #e1e1e1;
+  margin-bottom: 10px;
+}
+
+#readme_at_repo_dir li {
+  margin-bottom: 5px;
+}
+
+/* Links in README - matches SageDark link color */
+#readme_at_repo_dir a,
+#readme_at_repo_dir a:link,
+#readme_at_repo_dir a:visited {
+  color: #4586ac;
+  text-decoration: none;
+}
+
+#readme_at_repo_dir a:hover {
+  color: #B8860B;
+  text-decoration: underline;
+}
+
+/* Code blocks - matches SageDark code styling */
+#readme_at_repo_dir pre {
+  background-color: #2c2c2c !important;
+  border: 1px solid #444 !important;
+  color: #e1e1e1 !important;
+  padding: 10px;
+  border-radius: 3px;
+  overflow-x: auto;
+  margin: 10px 0;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9rem;
+  line-height: 1.4;
+}
+
+#readme_at_repo_dir code {
+  background-color: #333 !important;
+  border: 1px solid #444 !important;
+  color: #e1e1e1 !important;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-family: "Consolas", "Monaco", "Courier New", monospace;
+  font-size: 0.9em;
+}
+
+/* Code inside pre should not have extra background */
+#readme_at_repo_dir pre code {
+  background-color: transparent !important;
+  border: none !important;
+  padding: 0;
+}
+
+/* Tables in README */
+#readme_at_repo_dir table {
+  border-collapse: collapse;
+  margin: 10px 0;
+  width: 100%;
+}
+
+#readme_at_repo_dir table th,
+#readme_at_repo_dir table td {
+  border: 1px solid #444;
+  padding: 8px;
+  text-align: left;
+}
+
+#readme_at_repo_dir table th {
+  background-color: #333;
+  color: #e1e1e1;
+  font-weight: bold;
+}
+
+#readme_at_repo_dir table td {
+  background-color: #222;
+  color: #e1e1e1;
+}
+
+#readme_at_repo_dir table tr:nth-child(even) td {
+  background-color: #2a2a2a;
+}
+
+/* Blockquotes */
+#readme_at_repo_dir blockquote {
+  border-left: 4px solid #B8860B;
+  padding-left: 15px;
+  margin: 10px 0;
+  color: #ccc;
+  font-style: italic;
+}
+
+/* Horizontal rules */
+#readme_at_repo_dir hr {
+  border: none;
+  border-top: 1px solid #444;
+  margin: 20px 0;
+}
+
+/* Images */
+#readme_at_repo_dir img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #444;
+  border-radius: 3px;
 }

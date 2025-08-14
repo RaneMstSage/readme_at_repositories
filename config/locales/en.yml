@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 en:
   label_readme_position: "Readme position"
   label_display_position_none: "none"
   label_display_position_top: "top"
-  label_display_position_middle: "midle"
+  label_display_position_middle: "middle"
   label_display_position_bottom: "bottom"
   label_project_setting_title: "Readme at Repository"
   label_update_setting: "update"

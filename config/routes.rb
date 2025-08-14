@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Routes for README at repositories plugin
 Rails.application.routes.draw do
-match "rar_project_settings/update(/:id(/:tab))" => "rar_project_settings#update", :via => 'post'
+  post 'rar_project_settings/update(/:id(/:tab))', to: 'rar_project_settings#update'
 end
