@@ -3,6 +3,7 @@
 # Hook class for displaying README content in repository views
 # Integrates with Redmine's view system to inject README content
 class DisplayReadme < Redmine::Hook::ViewListener
+  MAX_README_BYTES = 1_048_576
   MARKDOWN_EXTENSIONS = %w[.markdown .mdown .mkdn .md .mkd .mdwn .mdtxt .mdtext .text].freeze
 
   def view_repositories_show_contextual(context)
@@ -44,27 +45,34 @@ class DisplayReadme < Redmine::Hook::ViewListener
   end
 
   def get_readme_content(repo_info)
-    return unless repo_info[:repo]
+    repo = repo_info[:repo]
+    return unless repo
 
-    entry = repo_info[:repo].entry(repo_info[:path])
+    entry = repo.entry(repo_info[:path])
     return unless entry&.is_dir?
 
-    readme_file = find_readme_file(repo_info[:repo], repo_info[:path], repo_info[:rev])
+    readme_file = find_readme_file(repo, repo_info[:path], repo_info[:rev])
     return unless readme_file
 
-    raw_text = repo_info[:repo].cat(readme_file.path, repo_info[:rev])
-    return unless raw_text
+    raw_text = repo.cat(readme_file.path, repo_info[:rev])
+    return unless valid_readme_raw?(raw_text)
 
     { file: readme_file, text: raw_text }
+  end
+
+  def valid_readme_raw?(raw_text)
+    raw_text &&
+      raw_text.bytesize <= MAX_README_BYTES &&
+      !raw_text.include?("\x00")
   end
 
   def render_readme_partial(context, readme_data)
     context[:controller].send(:render_to_string, {
                                 partial: 'repository/readme',
-                                locals: { 
-                                  html: readme_data[:html], 
-                                  position: readme_data[:settings][:position], 
-                                  show: readme_data[:settings][:show] 
+                                locals: {
+                                  html: readme_data[:html],
+                                  position: readme_data[:settings][:position],
+                                  show: readme_data[:settings][:show]
                                 }
                               })
   end
@@ -85,9 +93,26 @@ class DisplayReadme < Redmine::Hook::ViewListener
   end
 
   def format_readme_content(file, raw_text)
+    safe_text = ensure_utf8(raw_text)
     formatter_name = determine_formatter(file)
-    formatter = Redmine::WikiFormatting.formatter_for(formatter_name).new(raw_text)
-    formatter.to_html
+    if formatter_name.present?
+      formatter = Redmine::WikiFormatting.formatter_for(formatter_name).new(safe_text)
+      formatter.to_html
+    else
+      # Plain text fallback (escape to avoid injection)
+      ERB::Util.html_escape(safe_text)
+    end
+  end
+
+  # Normalize to UTF-8, replacing invalid/undefined bytes.
+  def ensure_utf8(text)
+    return '' unless text
+
+    str = text.dup
+    # If git adapter returns ASCII-8BIT, first assume it is UTF-8 bytes.
+    str.force_encoding(Encoding::UTF_8) if str.encoding == Encoding::ASCII_8BIT
+    str = str.encode(Encoding::UTF_8, invalid: :replace, undef: :replace, replace: '?') unless str.valid_encoding?
+    str
   end
 
   def determine_formatter(file)
