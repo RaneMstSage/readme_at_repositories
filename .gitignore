@@ -1,6 +1,29 @@
+# Ignore Subversion directories
+.svn/
+
+# Alternatively, ignore any directory named .svn anywhere in the repository
+**/.svn/
+
+# Ignore any files or directories named .svn (if needed)
+.svn
+
+# If you want to ignore other SVN-related files (optional)
+*.svn-base
+
+# Development files (case-sensitive corrections)
+Gemfile
+Gemfile.lock
+.ruby-version
+.idea/
+
+# Optional: Also ignore other common development files
+.vscode/
+*.gem
+.bundle/
+vendor/bundle/
+
 *.gem
 *.rbc
-.bundle
 .config
 coverage
 InstalledFiles
