@@ -6,14 +6,19 @@ module ExtendProjectSetting
   # Extension module for adding README settings tab to project configuration
   module RarProjectSettingExtension
     def project_settings_tabs
-      action = {
-        name: 'readme_at_repositories',
-        action: { controller: 'rar_project_settings', action: 'update' },
-        partial: 'rar_project_settings/show',
-        label: :label_project_setting_title
-      }
       tabs = super
-      tabs.push(action)
+      
+      # Only add the tab if the module is enabled for this project
+      if @project && @project.module_enabled?(:readme_at_repository)
+        action = {
+          name: 'readme_at_repositories',
+          action: { controller: 'rar_project_settings', action: 'update' },
+          partial: 'rar_project_settings/show',
+          label: :label_project_setting_title
+        }
+        tabs.push(action)
+      end
+      
       tabs
     end
   end
